@@ -21,6 +21,11 @@ jobs:
 
       - name: Install Playwright browsers
         run: npx playwright install
+      
+      - name: Run tests
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+        run: npm test
 
       - name: Run tests
         run: npm test
