@@ -19,8 +19,9 @@ export class BasePage {
     async waitForElement(locator: Locator): Promise<void> {
         await locator.waitFor({ state: 'visible'})
     }
-    async navigate(path: string): Promise<void> { 
-        await this.page.goto((process.env.BASE_URL??'')+ path);
+    async navigate(path: string): Promise<void> {
+        const baseUrl = process.env.BASE_URL || 'https://opensource-demo.orangehrmlive.com';
+        await this.page.goto(baseUrl + path);
     }
     async isVisible(locator: Locator): Promise<boolean> {
         return await locator.isVisible();
