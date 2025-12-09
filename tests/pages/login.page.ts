@@ -8,21 +8,23 @@ export class LoginPage extends BasePage {
     private passwordInput: Locator;
     private loginButton: Locator;
     private logoutButton: Locator;
+    
     constructor(page: Page) {
         super(page);
         this.usernameInput = page.locator('input[name="username"]');
         this.passwordInput = page.locator('input[name="password"]');
         this.loginButton = page.locator('button[type="submit"]');
         this.logoutButton = page.locator('a.oxd-userdropdown-link[role="menuitem"]');
+        
     }
 
     
-    async login(username: string, password: string): void {
+    async login(username: string, password: string): Promise<void> {
         await this.fillInput(this.usernameInput, username);
         await this.fillInput(this.passwordInput, password);
         await this.click(this.loginButton);
     }
-    async logout(): void {
+    async logout(): Promise<void> {
         await this.click(this.logoutButton);
     }
 }

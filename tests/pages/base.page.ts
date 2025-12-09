@@ -7,22 +7,22 @@ export class BasePage {
         this.page = page;
     }
     
-    async click(locator: Locator): void {
+    async click(locator: Locator): Promise<void> {
         await locator.click();
     }
-    async fillInput(locator: Locator, text: string): void {
+    async fillInput(locator: Locator, text: string): Promise<void> {
         await locator.fill(text);
     }
-    async getText(locator: Locator): string{
+    async getText(locator: Locator): Promise<string | null> {
         return await locator.textContent()
     }
-    async waitForElement(locator: Locator): void {
+    async waitForElement(locator: Locator): Promise<void> {
         await locator.waitFor({ state: 'visible'})
     }
-    async navigate(path: string): void { 
+    async navigate(path: string): Promise<void> { 
         await this.page.goto((process.env.BASE_URL??'')+ path);
     }
-    async isVisible(locator: Locator): boolean {
+    async isVisible(locator: Locator): Promise<boolean> {
         return await locator.isVisible();
     }
 }
