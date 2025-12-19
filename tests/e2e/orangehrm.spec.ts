@@ -10,5 +10,14 @@ test('Successful login', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.navigate('/web/index.php/auth/login');
     await loginPage.login(testUsers.admin.username, testUsers.admin.password);
-    await expect(page.locator('h6:has-text("Dashboard")')).toBeVisible();
-})
+    await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
+});
+
+test('Logout', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.navigate('/web/index.php/auth/login');
+    await loginPage.login(testUsers.admin.username, testUsers.admin.password);
+    await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
+    await loginPage.logout();
+    await expect(page.getByRole('textbox', { name: 'Username' })).toBeVisible();
+});
