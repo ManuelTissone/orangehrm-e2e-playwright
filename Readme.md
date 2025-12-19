@@ -198,5 +198,5 @@ Tests run automatically on:
 
 ---
 
-Last Updated: November 2025
+Last Updated: December 2025
 Status: WIP - Framework & 1 test case complete
