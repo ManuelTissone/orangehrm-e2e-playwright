@@ -11,6 +11,8 @@ export class BasePage {
         await locator.click();
     }
     async fillInput(locator: Locator, text: string): Promise<void> {
+        await locator.click();
+        await locator.press('Control+A') //DELETE CONTENT
         await locator.fill(text);
     }
     async getText(locator: Locator): Promise<string | null> {
