@@ -21,3 +21,17 @@ test('Logout', async ({ page }) => {
     await loginPage.logout();
     await expect(page.getByRole('textbox', { name: 'Username' })).toBeVisible();
 });
+
+test('Admin - Edit company information', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    const adminPage = new AdminPage(page);
+    
+    await loginPage.navigate('/web/index.php/auth/login');
+    await loginPage.login(testUsers.admin.username, testUsers.admin.password);
+    await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
+    await adminPage.navigate('/web/index.php/admin/viewOrganizationGeneralInformation');
+    await adminPage.clickEdit();
+    await adminPage.editCompanyInfo(testUsers.organization.organizationName, testUsers.organization.organizationEmail);
+    await adminPage.saveChanges();
+    await expect(page.getByText('Successfully Updated')).toBeVisible();
+})

@@ -10,8 +10,8 @@ export class AdminPage extends BasePage {
     constructor(page: Page) {
         super(page);
         this.editButton = page.locator('span.oxd-switch-input');
-        this.organizationName = page.getByRole('textbox', { name: 'Organization Name' });
-        this.email = page.getByLabel('Email');
+        this.organizationName = page.locator('.organization-name-container input');
+        this.email = page.locator('.oxd-input-group.oxd-input-field-bottom-space').filter({ hasText: 'Email' }).locator('input');
         this.saveButton = page.getByRole('button', { name: 'Save' });
     }
 
@@ -19,9 +19,11 @@ export class AdminPage extends BasePage {
         await this.click(this.editButton);
     }
 
-    async editCompanyInfo(orgName: string, email: string): Promise<void> {
-        await this.fillInput(this.organizationName, orgName);
-        await this.fillInput(this.email, email);
+   async editCompanyInfo(orgName: string, email: string): Promise<void> {
+    console.log('Trying to fill Organization Name');
+    await this.fillInput(this.organizationName, orgName);
+    console.log('Trying to fill Email');
+    await this.fillInput(this.email, email);
     }
 
     async saveChanges(): Promise<void> {
