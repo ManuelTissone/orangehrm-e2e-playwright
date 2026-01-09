@@ -7,6 +7,10 @@ export class PimPage extends BasePage {
     private firstName: Locator;
     private lastName: Locator;
     private saveButton: Locator;
+    private searchEmployeeName: Locator;
+    private searchButton: Locator;
+    private editButton: Locator;
+    private saveEditButton: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -14,6 +18,10 @@ export class PimPage extends BasePage {
         this.firstName = page.getByRole('textbox', { name: 'First Name' });
         this.lastName = page.getByRole('textbox', { name: 'Last Name' });
         this.saveButton = page.getByRole('button', { name: 'Save' });
+        this.searchEmployeeName = page.getByRole('textbox', { name: 'Type for hints...' }).first();
+        this.searchButton = page.getByRole('button', { name: 'Search' });
+        this.editButton = page.getByRole('button', { name: '' }).first();
+        this.saveEditButton = page.getByRole('button', { name: 'Save' }).last();
     }
 
     async navigateToPIM(): Promise<void> {
@@ -28,8 +36,17 @@ export class PimPage extends BasePage {
         await this.fillInput(this.firstName, firstName);
         await this.fillInput(this.lastName, lastName);
     }
-
     async saveEmployee(): Promise<void> {
         await this.click(this.saveButton);
+    }
+    async saveEdit(): Promise<void> {
+        await this.click(this.saveEditButton);
+    }
+    async searchEmployee(employeeName: string): Promise<void> {
+        await this.typeInput(this.searchEmployeeName, employeeName);
+        await this.click(this.searchButton);
+    }
+    async clickEditEmployee(): Promise<void> {
+        await this.click(this.editButton);
     }
 }

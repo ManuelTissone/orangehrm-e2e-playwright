@@ -28,4 +28,8 @@ export class BasePage {
     async isVisible(locator: Locator): Promise<boolean> {
         return await locator.isVisible();
     }
+    async typeInput(locator: Locator, text: string): Promise<void> {
+        await locator.click();
+        await locator.type(text);
+    }
 }

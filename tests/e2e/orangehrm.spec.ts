@@ -34,4 +34,33 @@ test('Admin - Edit company information', async ({ page }) => {
     await adminPage.editCompanyInfo(testUsers.organization.organizationName, testUsers.organization.organizationEmail);
     await adminPage.saveChanges();
     await expect(page.getByText('Successfully Updated')).toBeVisible();
-})
+});
+
+test('PIM - Create employee', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    const pimPage = new PimPage(page);
+    await loginPage.navigate('/web/index.php/auth/login');
+    await loginPage.login(testUsers.admin.username, testUsers.admin.password);
+    await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
+    await pimPage.navigateToPIM();
+    await pimPage.clickAdd();
+    await pimPage.fillEmployeeInfo(testUsers.employee.employeeName, testUsers.employee.employeeLastName);
+    await pimPage.saveEmployee();
+    await expect(page.getByText('Successfully saved')).toBeVisible();
+});
+
+test('PIM - Edit employee', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    const pimPage = new PimPage(page);
+    await loginPage.navigate('/web/index.php/auth/login');
+    await loginPage.login(testUsers.admin.username, testUsers.admin.password);
+    await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
+    await pimPage.navigateToPIM();
+    await pimPage.searchEmployee(testUsers.employee.employeeName);
+    await pimPage.clickEditEmployee();
+    await pimPage.fillEmployeeInfo(testUsers.employeeEdit.employeeName, testUsers.employeeEdit.employeeLastName);
+    await pimPage.saveEdit();
+    await expect(page.getByText('Successfully saved')).toBeVisible();
+});
+
+
