@@ -123,6 +123,6 @@ test("Search employees", async ({ page }) => {
   await page.waitForTimeout(2000);
   await pimPage.searchEmployee(testUsers.employee.employeeName);
   await expect(
-    page.getByRole("row", { name: new RegExp(testUsers.employee.employeeName) })
+    page.getByRole("row", { name: new RegExp(testUsers.employee.employeeName) }).first()
   ).toBeVisible();
 });
