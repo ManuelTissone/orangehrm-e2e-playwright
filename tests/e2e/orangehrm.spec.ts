@@ -61,6 +61,28 @@ test('PIM - Edit employee', async ({ page }) => {
     await pimPage.fillEmployeeInfo(testUsers.employeeEdit.employeeName, testUsers.employeeEdit.employeeLastName);
     await pimPage.saveEdit();
     await expect(page.getByText('Successfully saved')).toBeVisible();
+    await page.reload(); 
+});
+test('PIM - Delete employeee', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    const pimPage = new PimPage(page);
+    await loginPage.navigate('/web/index.php/auth/login');
+    await loginPage.login(testUsers.admin.username, testUsers.admin.password);
+    await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
+    // 2. Crear empleado (setup)
+    await pimPage.navigateToPIM();
+    await pimPage.clickAdd();
+    await pimPage.fillEmployeeInfo('ToDelete', 'Employee');
+    await pimPage.saveEmployee();
+    await expect(page.getByText('Successfully saved')).toBeVisible();
+    // 3. Navegar a listado y buscar
+    await pimPage.navigateToPIM();
+    await pimPage.searchEmployee('ToDelete');
+    // 4. Eliminar
+    await pimPage.deleteEmployee();
+    await pimPage.confirmDelete();
+    // 5. Validar
+    await expect(page.getByText('Successfully Deleted')).toBeVisible();
 });
 
 
