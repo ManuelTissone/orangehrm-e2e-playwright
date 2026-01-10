@@ -11,6 +11,10 @@ export const testUsers = {
     employeeName: "Leandro",
     employeeLastName: "Suarez"
   },
+  invalidUser: {
+    username: 'InvalidUser',
+    password: 'wrongPassword'
+  },
   employeeEdit: {
     employeeName: "Valentino",
     employeeLastName: "Suarez"
