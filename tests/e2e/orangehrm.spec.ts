@@ -78,19 +78,16 @@ test("PIM - Delete employee", async ({ page }) => {
   await loginPage.navigate("/web/index.php/auth/login");
   await loginPage.login(testUsers.admin.username, testUsers.admin.password);
   await expect(page.getByRole("heading", { name: "Dashboard" })).toBeVisible();
-  // 2. Crear empleado (setup)
+  //Crear empleado (setup)
   await pimPage.navigateToPIM();
   await pimPage.clickAdd();
   await pimPage.fillEmployeeInfo("ToDelete", "Employee");
   await pimPage.saveEmployee();
   await expect(page.getByText("Successfully saved")).toBeVisible();
-  // 3. Navegar a listado y buscar
   await pimPage.navigateToPIM();
   await pimPage.searchEmployee("ToDelete");
-  // 4. Eliminar
   await pimPage.deleteEmployee();
   await pimPage.confirmDelete();
-  // 5. Validar
   await expect(page.getByText("Successfully Deleted")).toBeVisible();
 });
 test("Validate login error messages", async ({ page }) => {
@@ -107,4 +104,25 @@ test("Validate login error messages", async ({ page }) => {
   await test.step("Validate error message", async () => {
     await expect(page.getByText("Invalid credentials")).toBeVisible();
   });
+});
+test("Search employees", async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  const pimPage = new PimPage(page);
+  await loginPage.navigate("/web/index.php/auth/login");
+  await loginPage.login(testUsers.admin.username, testUsers.admin.password);
+  await expect(page.getByRole("heading", { name: "Dashboard" })).toBeVisible();
+  await pimPage.navigateToPIM();
+  await pimPage.clickAdd();
+  await pimPage.fillEmployeeInfo(
+    testUsers.employee.employeeName,
+    testUsers.employee.employeeLastName
+  );
+  await pimPage.saveEmployee();
+  await expect(page.getByText("Successfully saved")).toBeVisible();
+  await pimPage.navigateToPIM();
+  await page.waitForTimeout(2000);
+  await pimPage.searchEmployee(testUsers.employee.employeeName);
+  await expect(
+    page.getByRole("row", { name: new RegExp(testUsers.employee.employeeName) })
+  ).toBeVisible();
 });
