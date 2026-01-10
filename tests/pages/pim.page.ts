@@ -11,6 +11,8 @@ export class PimPage extends BasePage {
     private searchButton: Locator;
     private editButton: Locator;
     private saveEditButton: Locator;
+    private deleteButton: Locator;
+    private confirmDeleteButton: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -22,6 +24,8 @@ export class PimPage extends BasePage {
         this.searchButton = page.getByRole('button', { name: 'Search' });
         this.editButton = page.getByRole('button', { name: '' }).first();
         this.saveEditButton = page.getByRole('button', { name: 'Save' }).last();
+        this.deleteButton = page.getByRole('button', { name: '' }).first()
+        this.confirmDeleteButton = page.getByRole('button', { name: ' Yes, Delete' });
     }
 
     async navigateToPIM(): Promise<void> {
@@ -48,5 +52,12 @@ export class PimPage extends BasePage {
     }
     async clickEditEmployee(): Promise<void> {
         await this.click(this.editButton);
+    }
+    async deleteEmployee(): Promise<void> {
+        await this.click(this.deleteButton);
+    }
+
+    async confirmDelete(): Promise<void> {
+        await this.click(this.confirmDeleteButton);
     }
 }
