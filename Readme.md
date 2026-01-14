@@ -2,8 +2,6 @@
 
 [![Playwright Tests](https://github.com/ManuelTissone/orangehrm-e2e-playwright/actions/workflows/playwright.yml/badge.svg)](https://github.com/ManuelTissone/orangehrm-e2e-playwright/actions)
 
-Status: WIP (Work In Progress)
-
 End-to-end testing automation framework for OrangeHRM using Playwright and TypeScript. Demonstrates modern QA automation best practices with Page Object Model architecture, multi-browser support, and CI/CD integration.
 
 ## Table of Contents
@@ -174,7 +172,6 @@ Tests run in parallel across both browsers in CI/CD for comprehensive coverage.
 - [x] Search employees - Create employee and validate in search results
 - [x] Validate error messages - Invalid login credentials error handling
 - [x] Multi-browser compatibility - Automatic execution in Chrome + Firefox
-- [ ] Performance baseline - Response time validation
 
 ### Architecture
 
@@ -187,27 +184,6 @@ Tests run in parallel across both browsers in CI/CD for comprehensive coverage.
 - [x] Accessibility Locators - getByRole, getByLabel, getByPlaceholder for semantic HTML
 - [x] Test Independence - Each test includes complete setup, no cross-test dependencies
 - [x] GitHub Actions - Automated CI/CD with branch protection and multi-browser validation
-
-## What's Coming
-
-### Tests (2 remaining)
-
-- [ ] Performance baseline - Measure and validate response times
-- [ ] Additional negative scenarios - Input validation, boundary testing
-
-### Features
-
-- [ ] API testing (separate project: orangehrm-api-testing)
-- [ ] Visual regression testing
-- [ ] Accessibility compliance (WCAG 2.1)
-- [ ] Locator refactoring - Remove fragile `.first()/.last()` patterns
-
-### Documentation
-
-- [ ] Test case specifications
-- [ ] Locator strategy guide
-- [ ] Troubleshooting guide
-- [ ] Best practices for test independence
 
 ## Learning Resources
 
